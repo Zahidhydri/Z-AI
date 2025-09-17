@@ -1,0 +1,7 @@
+{
+  "name": "Z-AI",
+  "description": "A modern web application that allows users to generate images and videos from a text prompt using Google's Gemini API.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
