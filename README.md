@@ -1,26 +1,87 @@
-🎨 Z-AI Media GeneratorZ-AI is your creative co-pilot. This sleek web application transforms your text prompts into stunning, AI-generated images. It intelligently refines your ideas and uses cutting-edge models to bring your imagination to life, all through a clean and modern interface.[➡️ Live Demo Coming Soon! ⬅️]<!--It's highly recommended to add a screenshot or GIF of your app in action!1. Take a screenshot of your running application.2. Upload it to a service like Imgur or directly to your GitHub repo.3. Replace the link below with your image link.-->✨ Core Features🧠 AI-Powered Prompt Enhancement: Integrates the Google Gemini API to intelligently analyze your simple prompts and enrich them with creative details, unlocking visually superior results.🖼️ High-Quality Image Generation: Utilizes the Hugging Face Inference API with the Stable Diffusion model to generate high-resolution, context-aware images from your prompts.📱 Modern & Responsive UI: A beautifully designed interface built with Tailwind CSS that provides a seamless experience on any device, complete with loading states and intuitive error handling.↔️ Future-Ready Toggle: Includes a stylish toggle for switching between Image and Video generation, setting the stage for future expansion. (Note: Video generation is currently a placeholder).🔐 Secure API Handling: Ensures all API keys are managed securely on the client-side using Vite's environment variables, never exposing them in the codebase.⚙️ How It WorksThe user journey is designed to be simple and powerful:Enter a Prompt: The user types a basic idea into the text area (e.g., "a cat in a library").Refine (Optional): Clicking "Refine" sends the prompt to the Google Gemini API, which returns an enhanced version (e.g., "A fluffy ginger cat lounges on a stack of antique books in a grand, sunlit library, cinematic lighting").Generate: The final prompt is sent to the Hugging Face API.Display: While the Stable Diffusion model works, a loading animation is shown. The final image is then beautifully displayed.🛠️ Tech Stack & APIsCategoryTechnology / ServiceFrontendReact, TypeScriptBuild ToolViteStylingTailwind CSSImage AIHugging Face Inference API (Stable Diffusion)Prompt AIGoogle Gemini API📂 Project StructureZ-AI/
-├── public/
-│   └── # Static assets
-├── src/
-│   ├── components/
-│   │   ├── GeneratorForm.tsx
-│   │   ├── MediaDisplay.tsx
-│   │   └── Toggle.tsx
-│   ├── services/
-│   │   └── api.ts             # All external API calls
-│   ├── App.tsx
-│   ├── index.css
-│   └── main.tsx
-├── .env.example               # Example environment variables
-├── index.html
-└── package.json
-🚀 Getting StartedFollow these instructions to get a local copy up and running.PrerequisitesNode.js (v18 or later)npm / yarn / pnpmInstallation & SetupClone the repository:git clone [https://github.com/Zahidhydri/Z-AI.git](https://github.com/Zahidhydri/Z-AI.git)
-cd Z-AI
-Install dependencies:npm install
-Set up your environment variables:Rename the .env.example file to .env.local.Add your API keys to the .env.local file. You need a Hugging Face token and a Google Gemini API key.File: .env.local# Get from your Hugging Face account settings ([https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens))
-VITE_HuggingFace_Token='YOUR_HUGGINGFACE_TOKEN_HERE'
+To prove I am giving you the raw code, here is the entire `README.md` file again, but this time it's inside a special block that prevents the chat from rendering it. **This is the code you can copy.**
 
-# Get from Google AI Studio ([https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey))
-VITE_API_KEY='YOUR_GEMINI_API_KEY_HERE'
-Note: In Vite, client-side environment variables must be prefixed with VITE_ to be exposed to the browser.Run the development server:npm run dev
-Open http://localhost:5173 (or the port shown in your terminal) to view the application.🤝 ContributingContributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".Fork the ProjectCreate your Feature Branch (git checkout -b feature/AmazingFeature)Commit your Changes (git commit -m 'Add some AmazingFeature')Push to the Branch (git push origin feature/AmazingFeature)Open a Pull Request📄 LicenseDistributed under the MIT License. See LICENSE for more information.📧 ContactZahid - @ZahidHydri - zahidashrafhydri@gmail.comProject Link: https://github.com/Zahidhydri/Z-AI
+```markdown
+# 🎨 Z-AI Media Generator
+
+Z-AI is a sleek and modern web application that leverages the power of generative AI to create stunning images from text prompts. Built with React, TypeScript, and Vite, it provides a seamless and interactive user experience for bringing your creative ideas to life.
+
+---
+
+## ✨ Features
+
+* **📝 Text-to-Image Generation**: Utilizes the **Hugging Face Inference API** with the Stable Diffusion model to generate high-quality images.
+* **🪄 Prompt Refinement**: Integrates the **Google Gemini API** to intelligently enhance and add detail to your simple prompts, unlocking more creative potential.
+* **🖼️ Modern UI**: A clean, responsive, and user-friendly interface built with **Tailwind CSS**, featuring loading animations and clear error handling.
+* **↔️ Image/Video Toggle**: A stylish toggle allows for future expansion into video generation. (Note: Video generation is currently a placeholder).
+* **🔐 Secure API Key Handling**: All API keys are managed securely using environment variables.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend**: [React](https://reactjs.org/) & [TypeScript](https://www.typescriptlang.org/)
+* **Build Tool**: [Vite](https://vitejs.dev/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Generative AI APIs**:
+    * **Image Generation**: [Hugging Face Inference API](https://huggingface.co/inference-api) (Stable Diffusion)
+    * **Prompt Refinement**: [Google Gemini API](https://ai.google.dev/)
+
+---
+
+## 🚀 Getting Started
+
+Follow these instructions to get a local copy up and running.
+
+### Prerequisites
+
+* Node.js (v18 or later)
+* npm / yarn / pnpm
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/Zahidhydri/Z-AI.git](https://github.com/Zahidhydri/Z-AI.git)
+    cd Z-AI
+    ```
+
+2.  **Install NPM packages:**
+    ```sh
+    npm install
+    ```
+
+3.  **Set up your environment variables:**
+    * Create a file named `.env.local` in the root of the project.
+    * Add your API keys to this file. You will need a Hugging Face token for image generation and a Google Gemini API key for the prompt refiner.
+
+    **File: `.env.local`**
+    ```
+    # Get this from your Hugging Face account settings
+    VITE_HUGGINGFACE_TOKEN='YOUR_HUGGINGFACE_TOKEN_HERE'
+
+    # Get this from Google AI Studio
+    API_KEY='YOUR_GEMINI_API_KEY_HERE'
+    ```
+
+4.  **Run the development server:**
+    ```sh
+    npm run dev
+    ```
+    Open [http://localhost:5173](http://localhost:5173) (or whatever port is shown in your terminal) to view the application in your browser.
+
+---
+
+## ⚙️ How It Works
+
+The application is structured into several key components:
+
+* `MediaGenerator.tsx`: The main component that manages the application's state, including the prompt, loading status, and results.
+* `GeneratorForm.tsx`: The user interface for the input text area and the "Generate" / "Refine" buttons.
+* `MediaDisplay.tsx`: Renders the generated image, loading indicators, or error messages.
+* `services/Services.ts`: A dedicated module that handles all external API calls to Hugging Face and Google AI. This keeps the business logic separate from the UI components.
+
+
+## Author
+
+- Zahid hydri
+
