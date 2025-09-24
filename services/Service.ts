@@ -1,11 +1,13 @@
 import { GoogleGenAI, Chat } from "@google/genai";
 
-// The Gemini API key is still needed for the prompt refiner
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
+// 1. Access the Gemini API key correctly using process.env
+const geminiApiKey = process.env.GEMINI_API_KEY;
+
+if (!geminiApiKey) {
+    throw new Error("GEMINI_API_KEY environment variable not set. Check your .env.local and vite.config.ts");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: geminiApiKey });
 
 const VIDEO_GENERATION_MESSAGES = [
     "Warming up the video engine...",
@@ -39,15 +41,16 @@ export const createChat = (): Chat => {
  */
 export const generateImage = async (prompt: string): Promise<string> => {
     try {
-        const token = import.meta.env.VITE_HUGGINGFACE_TOKEN;
+        // 2. Access the Hugging Face token correctly using process.env
+        const token = process.env.HUGGINGFACE_TOKEN;
         if (!token) {
-            throw new Error("VITE_HUGGINGFACE_TOKEN is not set in your .env.local file.");
+            throw new Error("HUGGINGFACE_TOKEN is not set in your .env.local file.");
         }
 
         console.log("Using Hugging Face Token:", token.substring(0, 5) + "...");
 
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0", 
+            "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
             {
                 method: "POST",
                 headers: {
@@ -87,27 +90,17 @@ export const generateImage = async (prompt: string): Promise<string> => {
  */
 export const generateVideo = async (prompt: string, setLoadingMessage: (message: string) => void): Promise<string> => {
     try {
-        // Placeholder for video generation.
-        // Integrating a free video generation model often requires more setup,
-        // such as self-hosting an open-source model like Open-Sora.
-        // For now, we'll simulate the process and return a placeholder video.
-
         setLoadingMessage(VIDEO_GENERATION_MESSAGES[0]);
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate work
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
         let messageIndex = 1;
         for (let i = 0; i < 5; i++) {
             setLoadingMessage(VIDEO_GENERATION_MESSAGES[messageIndex % VIDEO_GENERATION_MESSAGES.length]);
             messageIndex++;
-            await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate polling
+            await new Promise(resolve => setTimeout(resolve, 2000));
         }
-
-
-        // In a real implementation, you would poll your video generation service
-        // and then download the video when it's ready.
+        
         setLoadingMessage("Video generation is not yet implemented with a free API.");
-
-        // Return a placeholder or throw an error
         throw new Error("Video generation with a free API is not yet implemented.");
 
     } catch (error) {
