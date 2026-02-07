@@ -50,7 +50,7 @@ export const generateImage = async (prompt: string): Promise<string> => {
         console.log("Using Hugging Face Token:", token.substring(0, 5) + "...");
 
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
+            "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0",
             {
                 method: "POST",
                 headers: {
@@ -90,22 +90,46 @@ export const generateImage = async (prompt: string): Promise<string> => {
  */
 export const generateVideo = async (prompt: string, setLoadingMessage: (message: string) => void): Promise<string> => {
     try {
-        setLoadingMessage(VIDEO_GENERATION_MESSAGES[0]);
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        setLoadingMessage("Checking video generation service availability...");
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-        let messageIndex = 1;
-        for (let i = 0; i < 5; i++) {
-            setLoadingMessage(VIDEO_GENERATION_MESSAGES[messageIndex % VIDEO_GENERATION_MESSAGES.length]);
-            messageIndex++;
-            await new Promise(resolve => setTimeout(resolve, 2000));
+        // 2. Access the Hugging Face token correctly using process.env
+        const token = process.env.HUGGINGFACE_TOKEN;
+        if (!token) {
+            throw new Error("HUGGINGFACE_TOKEN is not set in your .env.local file.");
         }
 
-        setLoadingMessage("Video generation is not yet implemented with a free API.");
-        throw new Error("Video generation with a free API is not yet implemented.");
+        setLoadingMessage("Sending request to video model...");
+
+        // Using damo-vilab/text-to-video-ms-1.7b which is a common open model
+        const response = await fetch(
+            "https://router.huggingface.co/hf-inference/models/damo-vilab/text-to-video-ms-1.7b",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({ inputs: prompt }),
+            }
+        );
+
+        if (response.status === 404 || response.status === 503) {
+            throw new Error("Free video generation service is currently unavailable or overloaded. Please try again later.");
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Hugging Face Video API error:", errorText);
+            throw new Error(`Video generation failed: ${response.status} ${response.statusText}`);
+        }
+
+        const videoBlob = await response.blob();
+        return URL.createObjectURL(videoBlob);
 
     } catch (error) {
         console.error("Error generating video:", error);
-        throw new Error("Failed to generate video. This feature is not yet fully implemented with a free API.");
+        throw new Error(error instanceof Error ? error.message : "Failed to generate video.");
     }
 };
 
