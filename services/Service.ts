@@ -50,7 +50,7 @@ export const generateImage = async (prompt: string): Promise<string> => {
         console.log("Using Hugging Face Token:", token.substring(0, 5) + "...");
 
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
+            "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0",
             {
                 method: "POST",
                 headers: {
@@ -99,7 +99,7 @@ export const generateVideo = async (prompt: string, setLoadingMessage: (message:
             messageIndex++;
             await new Promise(resolve => setTimeout(resolve, 2000));
         }
-        
+
         setLoadingMessage("Video generation is not yet implemented with a free API.");
         throw new Error("Video generation with a free API is not yet implemented.");
 
